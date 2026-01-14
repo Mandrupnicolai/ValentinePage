@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Will You Be My Valentine? 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Romantic + clean fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --accent-pink: #ff6fa5;
+      --accent-red: #ff4b6e;
+      --accent-purple: #b15cff;
+      --bg-dark: #1b1330;
+      --header-footer-blue: rgba(36, 89, 179, 0.88);
+      --page-transition-time: 0.8s;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: #fff;
+      background: radial-gradient(circle at top left, #ffd1e8 0, #ffb6d9 12%, #f89fd9 25%, #f17ac9 40%, #d057b2 55%, #8e3aa2 70%, #3b1b5b 100%);
+    }
+
+    body {
+      position: relative;
+    }
+
+    /* GLOBAL BACKGROUND: animated gradient + floating hearts + sparkles */
+
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      inset: -30%;
+      background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.4), transparent 50%),
+                  radial-gradient(circle at bottom right, rgba(255, 180, 220, 0.8), transparent 55%),
+                  linear-gradient(135deg, #ff9a9e 0%, #fecfef 35%, #fcbad3 55%, #ffdde1 75%, #b8c6ff 100%);
+      filter: blur(12px);
+      animation: gradientMove 18s ease-in-out infinite alternate;
+      opacity: 0.9;
+    }
+
+    @keyframes gradientMove {
+      0% { transform: translate3d(-4%, -2%, 0) scale(1.05); }
+      50% { transform: translate3d(3%, 3%, 0) scale(1.08); }
+      100% { transform: translate3d(-2%, 4%, 0) scale(1.03); }
+    }
+
+    .bg-heart, .bg-sparkle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.85;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .bg-heart {
+      width: 26px;
+      height: 26px;
+      background: var(--accent-pink);
+      transform: rotate(-45deg);
+      box-shadow: 0 0 10px rgba(255, 102, 153, 0.8);
+    }
+    .bg-heart::before,
+    .bg-heart::after {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+    }
+    .bg-heart::before {
+      top: -13px;
+      left: 0;
+    }
+    .bg-heart::after {
+      left: 13px;
+      top: 0;
+    }
+
+    .bg-sparkle {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+    }
+
+    @keyframes floatUp {
+      0% { transform: translate3d(var(--x-offset, 0), 110vh, 0) scale(0.6); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate3d(calc(var(--x-offset, 0) + 15px), -20vh, 0) scale(1.1); opacity: 0; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.4); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .pages {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      padding: 24px 12px 24px;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .page {
+      position: absolute;
+      inset: 24px 12px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      transition: opacity var(--page-transition-time) ease, transform var(--page-transition-time) ease;
+      opacity: 0;
+      transform: translateY(18px) scale(0.98);
+      pointer-events: none;
+    }
+
+    .page.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+    }
+
+    .page.exit-left  { transform: translateX(-40px); opacity: 0; }
+    .page.exit-right { transform: translateX(40px);  opacity: 0; }
+
+    /* PAGE 1 – VALENTINE PROPOSAL */
+
+    .proposal-heading {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.8rem, 4.4vw + 1.4rem, 4.6rem);
+      text-shadow:
+        0 0 16px rgba(255, 255, 255, 0.5),
+        0 0 30px rgba(254, 143, 187, 0.9),
+        0 0 58px rgba(173, 61, 136, 0.9);
+  margin-bottom: 28px;
+      animation: floatTitle 3.3s ease-in-out infinite alternate;
+    }
+
+    .teddy-container {
+      background: transparent; /* ensure the container has no background */
+      margin: 24px auto; /* increased vertical spacing around the teddy container */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      border: none; /* remove any accidental border */
+      box-shadow: none; /* remove any container shadow */
+    }
+
+    .hero-teddy {
+      width: min(320px, 58vw);
+      max-width: 360px;
+      height: auto;
+      display: block;
+  margin: 0; /* container handles outer spacing */
+  padding: 0;
+  border-radius: 0; /* remove rounded corners so no border appears */
+  box-shadow: none; /* remove teddy shadow/border */
+      background: transparent; /* ensure no background */
+      transform-origin: center;
+      transform: scale(1.5); /* make the teddy 1.5x size */
+    }
+
+    @keyframes floatTitle {
+      0% { transform: translateY(0); opacity: 0.96; }
+      50% { transform: translateY(-6px) scale(1.02); opacity: 1; }
+      100% { transform: translateY(0); opacity: 0.96; }
+    }
+
+    .proposal-subtext {
+      font-size: 0.96rem;
+      max-width: 500px;
+      margin: 0 auto 26px;
+      line-height: 1.6;
+      background: rgba(22, 9, 30, 0.42);
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .proposal-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+
+    /* Back button shown on PAGE 2 (top-left) */
+    .back-btn {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 3;
+      background: transparent; /* fully transparent background */
+      color: #fff;
+      border: none; /* no visible border */
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      font-weight: 600;
+      transition: transform 0.16s ease;
+    }
+
+    .back-btn:hover { transform: translateY(-2px); }
+
+    .btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 30px;
+      border-radius: 999px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.25s ease, color 0.25s ease;
+      transform-origin: center;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .btn-yes {
+      background: radial-gradient(circle at 10% 0, #ffe5f2, #ff85b3);
+      color: #3a033a;
+      box-shadow:
+        0 0 18px rgba(255, 111, 165, 0.9),
+        0 0 42px rgba(255, 174, 211, 0.9);
+      animation: gentlePulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes gentlePulse {
+      0%   { transform: translateY(0) scale(1);   box-shadow: 0 0 18px rgba(255, 111, 165, 0.9); }
+      50%  { transform: translateY(-3px) scale(1.06); box-shadow: 0 0 38px rgba(255, 157, 200, 1); }
+      100% { transform: translateY(0) scale(1);   box-shadow: 0 0 20px rgba(255, 111, 165, 0.9); }
+    }
+
+    .btn-yes::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.6), transparent 55%);
+      opacity: 0;
+      transform: translateX(-60%);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .btn-yes:hover::before {
+      opacity: 1;
+      transform: translateX(60%);
+    }
+
+    .btn-yes:hover {
+      transform: translateY(-2px) scale(1.04);
+    }
+
+    .btn-no {
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      min-width: 86px;
+      padding: 10px 18px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 12px rgba(30, 5, 33, 0.6);
+      position: relative;
+    }
+
+    .btn-no.panic {
+      animation: shake 0.18s ease-in-out 2;
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-4px, -2px) rotate(-3deg); }
+      50% { transform: translate(4px, 2px) rotate(2deg); }
+      75% { transform: translate(-3px, 1px) rotate(-1.5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    .btn-no-micro {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      background: rgba(0, 0, 0, 0.35);
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn-no.show-micro .btn-no-micro {
+      opacity: 1;
+      transform: translate(-50%, -4px);
+    }
+
+    /* PAGE 2 – ROMANTIC GIFTS */
+
+    .gifts-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-align: center;
+    }
+
+    .gifts-title { 
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(2.1rem, 2.4vw + 1.2rem, 3rem);
+      text-shadow:
+        0 0 12px rgba(255, 255, 255, 0.4),
+        0 0 24px rgba(252, 153, 207, 0.96);
+      font-size: 500%;
+    }
+
+    .gifts-subtext {
+      font-size: 0.9rem;
+      max-width: 540px;
+      opacity: 0.9;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .gifts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(200px, 260px));
+      gap: 22px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 860px) {
+      .gifts-grid {
+        grid-template-columns: repeat(2, minmax(180px, 240px));
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .gifts-grid {
+        grid-template-columns: minmax(220px, 90vw);
+      }
+    }
+
+    .gift-card {
+      position: relative;
+      border-radius: 26px;
+      padding: 18px 14px 22px;
+      /* Make the gift container visually transparent as requested */
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      cursor: pointer;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center;
+      transition: transform 0.32s ease;
+      min-height: 210px;
+    }
+
+    .gift-card:hover {
+      transform: translateY(-8px) scale(1.03);
+    }
+
+    .gift-emoji {
+      font-size: clamp(9rem, 17.5vw, 12.5rem);
+      filter: drop-shadow(0 10px 22px rgba(0,0,0,0.35));
+      animation: floatBox 3s ease-in-out infinite;
+      user-select: none;
+      pointer-events: none; /* click handled by card */
+    }
+
+    /* Thumbnail shown on certain gift cards (second gift) */
+    .gift-thumb {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      border-radius: 12px;
+      margin-top: 10px;
+      box-shadow: 0 10px 28px rgba(20, 10, 30, 0.45);
+      transition: transform 0.28s ease, filter 0.28s ease;
+      pointer-events: none; /* card handles clicks */
+      display: block;
+      object-fit: cover;
+      transform-origin: center;
+      transform: scale(1); /* visually half width already; keep scale 1 so modal clone can expand */
+    }
+
+    .gift-card.opened .gift-thumb {
+      transform: scale(1.03) translateY(-4px);
+      filter: brightness(1.03) saturate(1.05);
+    }
+
+    @keyframes floatBox {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.02); }
+    }
+
+    /* MODAL */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 1, 24, 0.76);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 4;
+    }
+
+    .modal-backdrop.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: radial-gradient(circle at top, #ffe7f3, #f6c0e7);
+      color: #3d0638;
+      border-radius: 26px;
+      padding: 20px 18px 18px;
+      max-width: min(420px, 88vw);
+      width: 100%;
+      box-shadow: 0 22px 36px rgba(15, 2, 32, 0.9);
+      transform: scale(0.8) translateY(18px);
+      opacity: 0;
+      transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.38s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal.active {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      border: none;
+      background: transparent;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: rgba(71, 19, 76, 0.8);
+      padding: 4px;
+      line-height: 1;
+      z-index: 2;
+    }
+
+    .modal-visual {
+      height: 130px;
+      margin-bottom: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: visible;
+    }
+
+    .modal-visual-flowers .petal,
+    .modal-visual-chocolate .piece,
+    .modal-visual-hearts .heart {
+      position: absolute;
+    }
+
+    /* Flowers blooming */
+    .modal-visual-flowers .petal {
+      width: 26px;
+      height: 46px;
+      background: radial-gradient(circle at top, #ffe6ff, #ff8ac1);
+      border-radius: 999px;
+      transform-origin: bottom center;
+      opacity: 0;
+      animation: petalBloom 1.3s forwards;
+    }
+
+    .modal-visual-flowers .petal:nth-child(1) { transform: rotate(0deg);   animation-delay: 0.02s; }
+    .modal-visual-flowers .petal:nth-child(2) { transform: rotate(60deg);  animation-delay: 0.12s; }
+    .modal-visual-flowers .petal:nth-child(3) { transform: rotate(120deg); animation-delay: 0.22s; }
+    .modal-visual-flowers .petal:nth-child(4) { transform: rotate(180deg); animation-delay: 0.32s; }
+    .modal-visual-flowers .petal:nth-child(5) { transform: rotate(240deg); animation-delay: 0.42s; }
+    .modal-visual-flowers .petal:nth-child(6) { transform: rotate(300deg); animation-delay: 0.52s; }
+
+    @keyframes petalBloom {
+      0% { transform: scaleY(0.1) rotate(var(--angle)); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: scaleY(1) rotate(var(--angle)); opacity: 1; }
+    }
+
+    .modal-visual-flowers .center {
+      width: 26px;
+      height: 26px;
+      background: radial-gradient(circle at top, #fff7b2, #ffc857);
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(255, 227, 138, 0.9);
+      animation: centerPulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes centerPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.12); }
+    }
+
+    /* Chocolate animation removed per user request; modal will show a static image instead. */
+
+    /* Hearts animation */
+    .modal-visual-hearts .heart {
+      width: 26px;
+      height: 26px;
+      background: var(--accent-red);
+      transform: rotate(-45deg) scale(0);
+      box-shadow: 0 0 18px rgba(255, 163, 198, 0.95);
+      animation: popupHeart 1.4s forwards;
+    }
+
+    .modal-visual-hearts .heart::before,
+    .modal-visual-hearts .heart::after {
+      content: "";
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background: var(--accent-red);
+      border-radius: 50%;
+    }
+    .modal-visual-hearts .heart::before {
+      top: -13px;
+      left: 0;
+    }
+    .modal-visual-hearts .heart::after {
+      left: 13px;
+      top: 0;
+    }
+
+    .modal-visual-hearts .heart:nth-child(1) { animation-delay: 0.04s;  transform-origin: center; }
+    .modal-visual-hearts .heart:nth-child(2) { animation-delay: 0.28s;  transform-origin: 10% 80%; }
+    .modal-visual-hearts .heart:nth-child(3) { animation-delay: 0.48s;  transform-origin: 90% 100%; }
+
+    @keyframes popupHeart {
+      0%   { transform: rotate(-45deg) scale(0); opacity: 0; }
+      30%  { transform: rotate(-45deg) scale(1.1); opacity: 1; }
+      55%  { transform: rotate(-45deg) scale(0.9) translateY(-4px); }
+      100% { transform: rotate(-45deg) scale(1) translateY(-8px); }
+    }
+
+    .modal-message {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    /* Chocolate-specific message spacing removed. */
+
+    /* Flower voucher visuals */
+    .voucher-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(145deg, #ffe8f5, #f6cde7);
+      border-radius: 18px;
+      box-shadow: 0 20px 34px rgba(87, 24, 82, 0.28), inset 0 0 0 2px rgba(255, 255, 255, 0.36);
+      animation: floatVoucher 2.8s ease-in-out infinite;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .voucher-card::before,
+    .voucher-card::after {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px dashed rgba(255, 137, 190, 0.7);
+      border-radius: 14px;
+    }
+
+    .voucher-card::after {
+      inset: 8px;
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.4);
+      mix-blend-mode: screen;
+      opacity: 0.9;
+    }
+
+    .voucher-text {
+      position: relative;
+      text-align: center;
+      color: #521740;
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.4;
+      z-index: 1;
+    }
+
+    .bouquet {
+      position: absolute;
+      bottom: -18px;
+      right: -10px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at 30% 20%, #ffe6ff, #ff8ac1 60%);
+      border-radius: 50% 50% 45% 45%;
+      filter: drop-shadow(0 8px 18px rgba(0,0,0,0.22));
+      animation: sway 2.5s ease-in-out infinite;
+      transform-origin: bottom center;
+      z-index: 0;
+    }
+
+    .bouquet::before,
+    .bouquet::after {
+      content: "";
+      position: absolute;
+      background: radial-gradient(circle at 30% 20%, #fff1ff, #ff74b7 70%);
+      border-radius: 50%;
+      opacity: 0.9;
+    }
+
+    .bouquet::before {
+      width: 70px;
+      height: 70px;
+      top: -8px;
+      left: -22px;
+    }
+
+    .bouquet::after {
+      width: 80px;
+      height: 80px;
+      top: -24px;
+      left: 32px;
+    }
+
+    @keyframes floatVoucher {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-6px) scale(1.01); }
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(4deg); }
+    }
+
+    /* Simplified chocolate box visuals: keep wrapper and art styling for static image display. */
+    .choc-box {
+      width: min(320px, 90vw);
+      padding: 0;
+      border-radius: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .choc-art {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: inherit;
+    }
+
+    /* Countdown visuals */
+    .countdown-box {
+      width: min(320px, 90vw);
+      padding: 16px 14px 12px;
+      border-radius: 18px;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 230, 250, 0.7), rgba(66, 18, 74, 0.85));
+      box-shadow: 0 20px 30px rgba(10, 2, 20, 0.46), inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .countdown-item {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 10px 8px;
+      text-align: center;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+    }
+
+    .countdown-value {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      opacity: 0.82;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .countdown-hearts {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .countdown-hearts span {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: var(--accent-pink);
+      transform: rotate(-45deg);
+      opacity: 0.8;
+      animation: floatUp 6s ease-in infinite;
+    }
+
+    .countdown-hearts span::before,
+    .countdown-hearts span::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+    }
+
+    .countdown-hearts span::before { top: -7px; left: 0; }
+    .countdown-hearts span::after { left: 7px; top: 0; }
+
+    /* CONFETTI / HEART EXPLOSION */
+
+    .explosion-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: visible;
+      z-index: 5;
+    }
+
+    .explosion-heart,
+    .explosion-confetti {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+      animation: explode 1.2s ease-out forwards;
+    }
+
+    .explosion-heart {
+      background: var(--accent-pink);
+      transform: rotate(-45deg);
+    }
+    .explosion-heart::before,
+    .explosion-heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: var(--accent-pink);
+      border-radius: 50%;
+    }
+    .explosion-heart::before {
+      top: -7px;
+      left: 0;
+    }
+    .explosion-heart::after {
+      left: 7px;
+      top: 0;
+    }
+
+    .explosion-confetti {
+      width: 10px;
+      height: 14px;
+      border-radius: 4px;
+      background: linear-gradient(145deg, #ffe164, #ff7ab2);
+    }
+
+    @keyframes explode {
+      0% { transform: translate3d(0, 0, 0) scale(0.4); opacity: 1; }
+      100% { transform: translate3d(var(--dx), var(--dy), 0) scale(1.1); opacity: 0; }
+    }
+
+    /* CURSOR HEART TRAIL */
+
+    .cursor-heart {
+      position: fixed;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      pointer-events: none;
+      z-index: 2;
+      animation: trailUp 0.8s ease-out forwards;
+    }
+
+    .cursor-heart::before,
+    .cursor-heart::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #ffe4f4;
+      border-radius: 50%;
+    }
+    .cursor-heart::before {
+      top: -8px;
+      left: 0;
+    }
+    .cursor-heart::after {
+      top: 0;
+      left: 8px;
+    }
+    .cursor-heart-inner {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 20%, #fff, var(--accent-pink));
+      border-radius: 0;
+    }
+
+    @keyframes trailUp {
+      0% { opacity: 0.9; transform: translate(-50%, -50%) translateY(0) rotate(-45deg) scale(0.8); }
+      100% { opacity: 0; transform: translate(-50%, -50%) translateY(-20px) rotate(-45deg) scale(1.1); }
+    }
+
+    /* UTIL */
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background decoration -->
+  <div class="bg-overlay" id="bgOverlay">
+    <div class="bg-gradient"></div>
+  </div>
+
+  <!-- Confetti / explosion layer -->
+  <div class="explosion-container" id="explosionLayer"></div>
+
+  <!-- Pages -->
+  <main class="pages">
+    <!-- PAGE 1 -->
+    <section class="page active" id="page1" aria-label="Valentine Proposal">
+  <h1 class="proposal-heading">Will you be my Valentine?</h1>
+  <div class="teddy-container">
+    <img src="assets/teddy_Bear.png" alt="A plush teddy bear holding a heart" class="hero-teddy" />
+  </div>
+  <div class="proposal-buttons">
+        <button id="yesButton" class="btn btn-yes" type="button">
+          ❤️ Yes, forever
+        </button>
+
+        <button id="noButton" class="btn btn-no" type="button">
+          <span class="btn-no-micro" id="noMicroText">Wait—!</span>
+          <span id="noLabel">Umm... no?</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="page" id="page2" aria-label="Romantic Gifts">
+      <button id="backToHome" class="back-btn" type="button" aria-label="Back to proposal">← Back</button>
+      <div class="gifts-layout">
+        <h2 class="gifts-title">Small gifts for my favorite person❤️</h2>
+        <div class="gifts-grid">
+          <article class="gift-card" data-gift="flowers" aria-label="Mystery gift: 1">
+            <div class="gift-emoji" aria-hidden="true">🎁</div>
+          </article>
+
+          <article class="gift-card" data-gift="chocolate" aria-label="Mystery gift: 2">
+            <div class="gift-emoji" aria-hidden="true">🎁</div>
+          </article>
+
+          <article class="gift-card" data-gift="countdown" aria-label="Mystery gift: 3">
+            <div class="gift-emoji" aria-hidden="true">🎁</div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" id="giftModal" role="dialog" aria-modal="true">
+      <button class="modal-close" id="modalClose" type="button" aria-label="Close gift message">×</button>
+      <div class="modal-visual" id="modalVisual"></div>
+      <p class="modal-message" id="modalMessage"></p>
+    </div>
+  </div>
+
+  <!-- Audio elements (start only after interaction) -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg" />
+  </audio>
+
+  <audio id="yesSound">
+    <source src="https://www.soundjay.com/button/beep-07.wav" type="audio/wav" />
+  </audio>
+
+  <audio id="unwrapSound">
+    <source src="https://www.soundjay.com/button/button-3.wav" type="audio/wav" />
+  </audio>
+
+
+  <script>
+    // --------------------------
+    // BASIC REFERENCES
+    // --------------------------
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const noLabel = document.getElementById('noLabel');
+    const noMicroText = document.getElementById('noMicroText');
+
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const giftModal = document.getElementById('giftModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalVisual = document.getElementById('modalVisual');
+    const modalMessage = document.getElementById('modalMessage');
+
+    const gifts = document.querySelectorAll('.gift-card');
+    const explosionLayer = document.getElementById('explosionLayer');
+
+    const bgMusic = document.getElementById('bgMusic');
+    const yesSound = document.getElementById('yesSound');
+    const unwrapSound = document.getElementById('unwrapSound');
+
+
+    let bgMusicEnabled = false;
+    let allGiftsOpened = 0;
+    let userHasInteracted = false;
+    const openedOnce = {
+      flowers: false,
+      chocolate: false,
+      countdown: false
+    };
+    let countdownInterval = null;
+
+    // For "No" button mischief
+    let noHoverCount = 0;
+    const panicPhrases = [
+      "Wait—!",
+      "Hey!",
+      "That was close!",
+      "Are you sure?!",
+      "My heart😱",
+      "Rethink this!",
+      "Choose love!"
+    ];
+
+    // --------------------------
+    // UTILS
+    // --------------------------
+    function safePlay(audioEl, volume = 1) {
+      if (!audioEl) return;
+      audioEl.volume = volume;
+      const p = audioEl.play();
+      if (p && typeof p.catch === 'function') {
+        p.catch(() => {});
+      }
+    }
+
+    function toggleBgMusic(forceOn) {
+      if (!userHasInteracted) return; // start only after interaction
+      if (typeof forceOn === 'boolean') {
+        bgMusicEnabled = forceOn;
+      } else {
+        bgMusicEnabled = !bgMusicEnabled;
+      }
+
+      if (bgMusicEnabled) {
+        bgMusic.volume = 0.15;
+        safePlay(bgMusic);
+      } else {
+        bgMusic.pause();
+      }
+    }
+
+    function showPage(target) {
+      const toPage1 = target === 1;
+      if (toPage1) {
+        page1.classList.add('active');
+        page2.classList.remove('active');
+      } else {
+        page2.classList.add('active');
+        page1.classList.remove('active');
+      }
+    }
+
+    function createExplosion(x, y, count = 26) {
+      for (let i = 0; i < count; i++) {
+        const isHeart = Math.random() < 0.6;
+        const particle = document.createElement('div');
+        particle.className = isHeart ? 'explosion-heart' : 'explosion-confetti';
+
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 80 + Math.random() * 160;
+        const dx = Math.cos(angle) * speed;
+        const dy = Math.sin(angle) * speed;
+
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        particle.style.setProperty('--dx', dx + 'px');
+        particle.style.setProperty('--dy', dy + 'px');
+
+        explosionLayer.appendChild(particle);
+        particle.addEventListener('animationend', () => {
+          particle.remove();
+        });
+      }
+    }
+
+    function stopCountdown() {
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+    }
+
+    function getNextValentine() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const target = new Date(`${year}-02-14T00:00:00`);
+      if (target < now) target.setFullYear(year + 1);
+      return target;
+    }
+
+    function startCountdown(countEls) {
+      stopCountdown();
+      const target = getNextValentine();
+
+      const update = () => {
+        const now = new Date();
+        const diff = Math.max(0, target - now);
+        const totalSeconds = Math.floor(diff / 1000);
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+
+        countEls.days.textContent = String(days).padStart(2, '0');
+        countEls.hours.textContent = String(hours).padStart(2, '0');
+        countEls.minutes.textContent = String(minutes).padStart(2, '0');
+        countEls.seconds.textContent = String(seconds).padStart(2, '0');
+      };
+
+      update();
+      countdownInterval = setInterval(update, 1000);
+    }
+
+    function openFlowerModal() {
+      stopCountdown();
+      modalVisual.innerHTML = '';
+      modalVisual.className = 'modal-visual';
+
+      const voucher = document.createElement('div');
+      voucher.className = 'voucher-card';
+
+      const text = document.createElement('div');
+      text.className = 'voucher-text';
+      text.innerHTML = 'This voucher can be redeemed for one beautiful bouquet of flowers 💐';
+
+      const bouquet = document.createElement('div');
+      bouquet.className = 'bouquet';
+
+      voucher.appendChild(text);
+      voucher.appendChild(bouquet);
+
+      modalVisual.appendChild(voucher);
+      modalMessage.textContent = '';
+
+      modalBackdrop.classList.add('active');
+      giftModal.classList.add('active');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    function openChocolateModal() {
+      stopCountdown();
+      modalVisual.innerHTML = '';
+  // use standard modal visual wrapper (chocolate animations removed)
+  modalVisual.className = 'modal-visual';
+
+      const box = document.createElement('div');
+      box.className = 'choc-box';
+
+  // Prefer cloning the thumbnail inside the chocolate gift card so the
+  // exact image the user sees on the card appears inside the modal.
+  // Insert the assets image into the modal and size it to ~0.5 (50%).
+  // Try to clone an in-card thumbnail if present; otherwise create
+  // a new <img> that references the local asset.
+  const cardThumb = document.querySelector('.gift-card[data-gift="chocolate"] .gift-thumb');
+      let modalImg;
+      if (cardThumb) {
+        modalImg = cardThumb.cloneNode(true);
+        modalImg.classList.remove('gift-thumb');
+        modalImg.classList.add('choc-art');
+      } else {
+        modalImg = document.createElement('img');
+        modalImg.className = 'choc-art';
+        // Use a relative path with explicit ./ which can be more reliable when
+        // the page is opened via file:// protocol.
+  // Use existing local asset; fallback PNG file present in assets/
+  modalImg.src = './assets/chocolate_Box.png';
+        modalImg.alt = 'Heart-shaped box of assorted chocolates';
+      }
+  // Ensure the modal visual area is tall enough for the image and center it.
+  modalVisual.style.height = '180px';
+  box.style.display = 'flex';
+  box.style.alignItems = 'center';
+  box.style.justifyContent = 'center';
+  modalImg.style.width = '80%';
+  modalImg.style.maxWidth = '100%';
+  modalImg.style.height = 'auto';
+  modalImg.style.display = 'block';
+  modalImg.style.margin = '0 auto 12px';
+  modalImg.style.pointerEvents = 'none';
+  modalImg.style.transformOrigin = 'center';
+  // Remove border and ensure transparent background so the image blends
+  // cleanly with the modal background.
+  modalImg.style.border = 'none';
+  modalImg.style.background = 'transparent';
+      modalImg.addEventListener('load', () => {
+        console.log('Chocolate modal image loaded:', modalImg.src);
+      });
+      modalImg.addEventListener('error', (ev) => {
+        console.error('Failed to load chocolate modal image:', modalImg.src, ev);
+        // show a small placeholder message in the modal visual for visibility
+        const errNote = document.createElement('div');
+        errNote.textContent = 'Image not available';
+        errNote.style.fontSize = '0.9rem';
+        errNote.style.color = 'rgba(61,6,56,0.9)';
+        errNote.style.marginTop = '8px';
+        box.appendChild(errNote);
+      });
+      box.appendChild(modalImg);
+
+      modalVisual.appendChild(box);
+      modalMessage.textContent = 'A heart full of chocolates just for you.';
+
+      modalBackdrop.classList.add('active');
+      giftModal.classList.add('active');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    function openCountdownModal() {
+      stopCountdown();
+      modalVisual.innerHTML = '';
+      modalVisual.className = 'modal-visual';
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'countdown-box';
+
+      const hearts = document.createElement('div');
+      hearts.className = 'countdown-hearts';
+      for (let i = 0; i < 8; i++) {
+        const h = document.createElement('span');
+        h.style.left = `${Math.random() * 100}%`;
+        h.style.animationDelay = `${Math.random() * 3}s`;
+        hearts.appendChild(h);
+      }
+      wrapper.appendChild(hearts);
+
+      const grid = document.createElement('div');
+      grid.className = 'countdown-grid';
+
+      const segments = ['Days', 'Hours', 'Minutes', 'Seconds'];
+      const els = {};
+      segments.forEach((label) => {
+        const item = document.createElement('div');
+        item.className = 'countdown-item';
+        const value = document.createElement('span');
+        value.className = 'countdown-value';
+        value.textContent = '00';
+        const lbl = document.createElement('span');
+        lbl.className = 'countdown-label';
+        lbl.textContent = label;
+        item.appendChild(value);
+        item.appendChild(lbl);
+        grid.appendChild(item);
+        els[label.toLowerCase()] = value;
+      });
+
+      wrapper.appendChild(grid);
+      modalVisual.appendChild(wrapper);
+
+      modalMessage.textContent = 'Counting down to our Valentine\'s day⏳💕';
+
+      startCountdown(els);
+
+      modalBackdrop.classList.add('active');
+      giftModal.classList.add('active');
+      modalBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    function openModal(type) {
+      if (type === 'flowers') return openFlowerModal();
+      if (type === 'chocolate') return openChocolateModal();
+      if (type === 'countdown') return openCountdownModal();
+    }
+
+    function closeModal() {
+      giftModal.classList.remove('active');
+      modalBackdrop.classList.remove('active');
+      modalBackdrop.setAttribute('aria-hidden', 'true');
+      stopCountdown();
+      // reset any modal-visual inline sizing we set for specific modals
+      modalVisual.style.height = '';
+      modalVisual.className = 'modal-visual';
+    }
+
+    // --------------------------
+    // YES BUTTON – celebration -> start music -> go to gifts page
+    // --------------------------
+    yesButton.addEventListener('click', (ev) => {
+      userHasInteracted = true;
+
+      const rect = yesButton.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      createExplosion(centerX, centerY, 30);
+
+      toggleBgMusic(true);
+      safePlay(yesSound, 1);
+      showPage(2);
+    });
+
+    // --------------------------
+    // NO BUTTON – runs away, shakes, changes text
+    // --------------------------
+    function moveNoButton() {
+      const btnRect = noButton.getBoundingClientRect();
+      const margin = 10;
+
+      const maxX = window.innerWidth - btnRect.width - margin;
+      const maxY = window.innerHeight - btnRect.height - margin;
+
+      const newX = margin + Math.random() * maxX;
+      const newY = margin + Math.random() * (maxY - margin);
+
+  // Make the button move a bit more slowly and playfully as hover count
+  // increases: increase base duration and reduce the speed decrement per hover.
+  const speedBase = 1.0; // base seconds for left/top transitions (was 0.6)
+  const speed = Math.max(0.35, speedBase - (noHoverCount * 0.04));
+  noButton.style.position = 'fixed';
+  // Slightly slow the transform/box-shadow animations too for a gentler motion
+  noButton.style.transition = 'transform 0.28s ease, box-shadow 0.28s ease, left ' + speed + 's cubic-bezier(0.24, 0.9, 0.32, 1.4), top ' + speed + 's cubic-bezier(0.24, 0.9, 0.32, 1.4)';
+      noButton.style.left = newX + 'px';
+      noButton.style.top = newY + 'px';
+    }
+
+    noButton.addEventListener('mouseenter', () => {
+      userHasInteracted = true;
+      noHoverCount++;
+
+      const phrase = panicPhrases[Math.min(noHoverCount - 1, panicPhrases.length - 1)];
+      noMicroText.textContent = phrase;
+      noButton.classList.add('show-micro', 'panic');
+      moveNoButton();
+
+      setTimeout(() => {
+        noButton.classList.remove('panic');
+      }, 250);
+    });
+
+    noButton.addEventListener('mouseleave', () => {
+      noButton.classList.remove('show-micro');
+    });
+
+    // --------------------------
+    // GIFTS – open once, modal per gift
+    // --------------------------
+    gifts.forEach((gift) => {
+      gift.addEventListener('click', () => {
+        userHasInteracted = true;
+        const type = gift.dataset.gift;
+        gift.classList.add('opened');
+
+        if (!openedOnce[type]) {
+          openedOnce[type] = true;
+          allGiftsOpened++;
+        }
+
+        safePlay(unwrapSound, 1);
+        openModal(type);
+
+        // If all gifts opened, celebratory explosion in center
+        if (allGiftsOpened === 3) {
+          const cx = window.innerWidth / 2;
+          const cy = window.innerHeight / 2;
+          setTimeout(() => createExplosion(cx, cy, 42), 350);
+        }
+      });
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (e) => {
+      if (e.target === modalBackdrop) {
+        closeModal();
+      }
+    });
+
+    // Back button on gifts page -> return to proposal
+    const backToHome = document.getElementById('backToHome');
+    if (backToHome) {
+      backToHome.addEventListener('click', () => {
+        showPage(1);
+      });
+    }
+
+    // --------------------------
+    // CURSOR HEART TRAIL
+    // --------------------------
+    let lastHeartTime = 0;
+    document.addEventListener('pointermove', (e) => {
+      const now = performance.now();
+      if (now - lastHeartTime < 45) return; // throttle
+      lastHeartTime = now;
+
+      const heart = document.createElement('div');
+      heart.className = 'cursor-heart';
+      const inner = document.createElement('div');
+      inner.className = 'cursor-heart-inner';
+      heart.appendChild(inner);
+
+      heart.style.left = e.clientX + 'px';
+      heart.style.top = e.clientY + 'px';
+
+      document.body.appendChild(heart);
+      heart.addEventListener('animationend', () => heart.remove());
+    });
+
+    // --------------------------
+    // FLOATING HEARTS + SPARKLES IN BACKGROUND
+    // --------------------------
+    const bgOverlay = document.getElementById('bgOverlay');
+
+    function spawnBgHeart() {
+      const el = document.createElement('div');
+      el.className = 'bg-heart';
+      const startX = Math.random() * 100;
+      el.style.left = startX + 'vw';
+      el.style.setProperty('--x-offset', (Math.random() * 60 - 30) + 'px');
+      const duration = 10 + Math.random() * 16;
+      el.style.animation = 'floatUp ' + duration + 's ease-in infinite';
+      bgOverlay.appendChild(el);
+
+      setTimeout(() => el.remove(), (duration + 1) * 1000);
+    }
+
+    function spawnSparkle() {
+      const el = document.createElement('div');
+      el.className = 'bg-sparkle';
+      const x = Math.random() * 100;
+      const y = Math.random() * 100;
+      el.style.left = x + 'vw';
+      el.style.top = y + 'vh';
+      const duration = 2 + Math.random() * 2.5;
+      el.style.animation = 'twinkle ' + duration + 's ease-in-out infinite';
+      bgOverlay.appendChild(el);
+
+      setTimeout(() => el.remove(), (duration + 0.5) * 1000);
+    }
+
+    for (let i = 0; i < 14; i++) {
+      setTimeout(spawnBgHeart, i * 800);
+    }
+
+    for (let i = 0; i < 18; i++) {
+      setTimeout(spawnSparkle, i * 260);
+    }
+
+    setInterval(spawnBgHeart, 4200);
+    setInterval(spawnSparkle, 1900);
+
+    // --------------------------
+    // Ensure audio never auto-plays without interaction
+    // --------------------------
+    document.addEventListener('click', () => {
+      userHasInteracted = true;
+    }, { once: true });
+  </script>
+</body>
+</html>
