@@ -27,7 +27,10 @@
     html, body {
       height: 100%;
       width: 100%;
-      overflow: hidden;
+      /* allow scrolling on small screens (iPhone) and respect safe-area insets */
+      overflow: auto;
+      -webkit-text-size-adjust: 100%;
+      padding-bottom: env(safe-area-inset-bottom, 0);
       font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       color: #fff;
       background: radial-gradient(circle at top left, #ffd1e8 0, #ffb6d9 12%, #f89fd9 25%, #f17ac9 40%, #d057b2 55%, #8e3aa2 70%, #3b1b5b 100%);
@@ -371,6 +374,63 @@
     @media (max-width: 560px) {
       .gifts-grid {
         grid-template-columns: minmax(220px, 90vw);
+      }
+    }
+
+    /* Mobile / small-screen tweaks (iPhone friendly) */
+    @media (max-width: 420px) {
+      html, body {
+        /* ensure content can scroll and account for iPhone notch / home bar */
+        overflow: auto;
+        padding-bottom: env(safe-area-inset-bottom, 12px);
+      }
+
+      .proposal-heading {
+        font-size: clamp(1.8rem, 6.6vw + 0.6rem, 2.6rem);
+      }
+
+      .hero-teddy {
+        transform: scale(1);
+        width: min(240px, 60vw);
+        max-width: 260px;
+      }
+
+      .proposal-buttons {
+        margin-top: 18px;
+        gap: 12px;
+        padding: 0 10px;
+      }
+
+      .gift-emoji {
+        font-size: clamp(4rem, 22vw, 8rem);
+      }
+
+      .gifts-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 10px;
+      }
+
+      .modal {
+        max-width: 96vw;
+        padding: 14px;
+      }
+
+      .modal-visual {
+        height: auto;
+        margin-bottom: 12px;
+      }
+
+      .btn {
+        padding: 12px 18px;
+        font-size: 0.98rem;
+        touch-action: manipulation;
+      }
+
+      .back-btn {
+        top: env(safe-area-inset-top, 10px);
+        left: 8px;
+        padding: 6px 10px;
       }
     }
 
