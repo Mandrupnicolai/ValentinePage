@@ -1,0 +1,10 @@
+[build]
+  publish = "."
+  command = ""
+
+[context.production.environment]
+  NODE_ENV = "production"
+
+# Optional: set a friendly default for Netlify's site name when created via CLI.
+[build.environment]
+  NETLIFY_SITE_NAME = "valentinepage"
