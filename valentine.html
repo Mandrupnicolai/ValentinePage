@@ -281,7 +281,7 @@
       if (typeof QRCode !== 'undefined') {
         // Use deployed Netlify URL for QR code (works when scanned from phone)
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-        const baseUrl = isLocalhost ? 'https://69679a99f62d71113fc32928--exquisite-gnome-7b1542.netlify.app' : window.location.origin;
+        const baseUrl = isLocalhost ? 'https://exquisite-gnome-7b1542.netlify.app' : window.location.origin;
         const redemptionUrl = baseUrl + '/redeem.html?gift=flowers';
         new QRCode(qrWrapper, {
           text: redemptionUrl,
