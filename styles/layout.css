@@ -47,7 +47,8 @@
   opacity: 0;
   transform: translateY(18px) scale(0.98);
   pointer-events: none;
-  padding-top: 40px;
+  padding: 40px 0 120px 0;
+  min-height: min-content;
 }
 
 .page.active {
