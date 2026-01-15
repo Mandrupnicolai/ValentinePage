@@ -139,14 +139,14 @@
 
 .gifts-title {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(1.8rem, 7.5vw, 2.4rem);
+  font-size: clamp(2.4rem, 10vw, 3.2rem);
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.4),
     0 0 24px rgba(252, 153, 207, 0.96);
   margin: 0 0 0.5rem 0;
   padding: 0.5rem 0;
   width: 100%;
-
+}
 
 .gifts-subtext {
   font-size: 0.9rem;
@@ -156,17 +156,18 @@
   margin-bottom: 12px;
 }
 
-/* Mobile: Single column vertical stack */
+/* Mobile: Horizontal row layout */
 .gifts-grid {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
   gap: 0.75rem;
   margin-top: 0.5rem;
   width: 100%;
   max-width: 100%;
   padding: 0;
+  flex-wrap: wrap;
 }
 
 /* Tablet: 2 columns */
