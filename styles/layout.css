@@ -1,0 +1,163 @@
+/**
+ * Layout Styles
+ * Page structure, positioning, and main layout components
+ */
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-gradient {
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.4), transparent 50%),
+              radial-gradient(circle at bottom right, rgba(255, 180, 220, 0.8), transparent 55%),
+              linear-gradient(135deg, #ff9a9e 0%, #fecfef 35%, #fcbad3 55%, #ffdde1 75%, #b8c6ff 100%);
+  filter: blur(12px);
+  animation: gradientMove 18s ease-in-out infinite alternate;
+  opacity: 0.9;
+}
+
+.pages {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 24px 12px 24px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  z-index: 1;
+}
+
+.page {
+  position: absolute;
+  inset: 24px 12px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: opacity var(--page-transition-time) ease, transform var(--page-transition-time) ease;
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  pointer-events: none;
+}
+
+.page.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: all;
+}
+
+.page.exit-left  { transform: translateX(-40px); opacity: 0; }
+.page.exit-right { transform: translateX(40px);  opacity: 0; }
+
+/* PAGE 1 – VALENTINE PROPOSAL */
+
+.proposal-heading {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.8rem, 4.4vw + 1.4rem, 4.6rem);
+  text-shadow:
+    0 0 16px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(254, 143, 187, 0.9),
+    0 0 58px rgba(173, 61, 136, 0.9);
+  margin-bottom: 28px;
+  animation: floatTitle 3.3s ease-in-out infinite alternate;
+}
+
+.teddy-container {
+  background: transparent;
+  margin: 24px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.hero-teddy {
+  width: min(320px, 58vw);
+  max-width: 360px;
+  height: auto;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  transform-origin: center;
+  transform: scale(1.5);
+}
+
+.proposal-subtext {
+  font-size: 0.96rem;
+  max-width: 500px;
+  margin: 0 auto 26px;
+  line-height: 1.6;
+  background: rgba(22, 9, 30, 0.42);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+.proposal-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+/* PAGE 2 – ROMANTIC GIFTS */
+
+.gifts-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+
+.gifts-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.1rem, 2.4vw + 1.2rem, 3rem);
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.4),
+    0 0 24px rgba(252, 153, 207, 0.96);
+  font-size: 500%;
+}
+
+.gifts-subtext {
+  font-size: 0.9rem;
+  max-width: 540px;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.gifts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(200px, 260px));
+  gap: 22px;
+  margin-top: 20px;
+}
+
+@media (max-width: 860px) {
+  .gifts-grid {
+    grid-template-columns: repeat(2, minmax(180px, 240px));
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .gifts-grid {
+    grid-template-columns: minmax(220px, 90vw);
+  }
+}

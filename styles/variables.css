@@ -1,0 +1,13 @@
+/**
+ * CSS Variables and Theme
+ * Defines all color variables and custom properties used throughout the application
+ */
+
+:root {
+  --accent-pink: #ff6fa5;
+  --accent-red: #ff4b6e;
+  --accent-purple: #b15cff;
+  --bg-dark: #1b1330;
+  --header-footer-blue: rgba(36, 89, 179, 0.88);
+  --page-transition-time: 0.8s;
+}

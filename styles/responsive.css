@@ -1,0 +1,75 @@
+/**
+ * Responsive Design
+ * Media queries for different screen sizes
+ */
+
+/* Tablet / Medium screens */
+@media (max-width: 860px) {
+  .gifts-grid {
+    grid-template-columns: repeat(2, minmax(180px, 240px));
+    justify-content: center;
+  }
+}
+
+/* Mobile / Small screens */
+@media (max-width: 560px) {
+  .gifts-grid {
+    grid-template-columns: minmax(220px, 90vw);
+  }
+}
+
+/* iPhone / Extra small screens */
+@media (max-width: 420px) {
+  html, body {
+    overflow: auto;
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+  }
+
+  .proposal-heading {
+    font-size: clamp(1.8rem, 6.6vw + 0.6rem, 2.6rem);
+  }
+
+  .hero-teddy {
+    transform: scale(1);
+    width: min(240px, 60vw);
+    max-width: 260px;
+  }
+
+  .proposal-buttons {
+    margin-top: 18px;
+    gap: 12px;
+    padding: 0 10px;
+  }
+
+  .gift-emoji {
+    font-size: clamp(4rem, 22vw, 8rem);
+  }
+
+  .gifts-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 0 10px;
+  }
+
+  .modal {
+    max-width: 96vw;
+    padding: 14px;
+  }
+
+  .modal-visual {
+    height: auto;
+    margin-bottom: 12px;
+  }
+
+  .btn {
+    padding: 12px 18px;
+    font-size: 0.98rem;
+    touch-action: manipulation;
+  }
+
+  .back-btn {
+    top: env(safe-area-inset-top, 10px);
+    left: 8px;
+    padding: 6px 10px;
+  }
+}
