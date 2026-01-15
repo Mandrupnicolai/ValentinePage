@@ -419,6 +419,7 @@
       noButton.style.top = newY + 'px';
     }
 
+    // Mouse events for desktop
     noButton.addEventListener('mouseenter', () => {
       userHasInteracted = true;
       noHoverCount++;
@@ -434,6 +435,26 @@
     });
 
     noButton.addEventListener('mouseleave', () => {
+      noButton.classList.remove('show-micro');
+    });
+
+    // Touch events for mobile
+    noButton.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      userHasInteracted = true;
+      noHoverCount++;
+
+      const phrase = panicPhrases[Math.min(noHoverCount - 1, panicPhrases.length - 1)];
+      noMicroText.textContent = phrase;
+      noButton.classList.add('show-micro', 'panic');
+      moveNoButton();
+
+      setTimeout(() => {
+        noButton.classList.remove('panic');
+      }, 250);
+    });
+
+    noButton.addEventListener('touchend', () => {
       noButton.classList.remove('show-micro');
     });
 
