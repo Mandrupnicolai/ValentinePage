@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="styles/modals.css" />
   <link rel="stylesheet" href="styles/animations.css" />
   <link rel="stylesheet" href="styles/responsive.css" />
-  <link rel="stylesheet" href="qr-code/styles/qr-code.css" />
 </head>
 <body>
   <!-- Background decoration -->
@@ -90,9 +89,6 @@
   <audio id="unwrapSound">
     <source src="https://www.soundjay.com/button/button-3.wav" type="audio/wav" />
   </audio>
-
-  <!-- QR Code Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <script>
     // --------------------------
@@ -248,26 +244,14 @@
       const voucher = document.createElement('div');
       voucher.className = 'voucher-card';
 
-      const container = document.createElement('div');
-      container.className = 'qr-container';
-
-      const qrWrapper = document.createElement('div');
-      qrWrapper.className = 'qr-code-wrapper';
-      qrWrapper.id = 'flowerQRCode';
-      
-      const textWrapper = document.createElement('div');
-      textWrapper.className = 'qr-text';
       const text = document.createElement('div');
       text.className = 'voucher-text';
       text.innerHTML = 'This voucher can be redeemed for one beautiful bouquet of flowers 💐';
-      textWrapper.appendChild(text);
-
-      container.appendChild(qrWrapper);
-      container.appendChild(textWrapper);
-      voucher.appendChild(container);
 
       const bouquet = document.createElement('div');
       bouquet.className = 'bouquet';
+
+      voucher.appendChild(text);
       voucher.appendChild(bouquet);
 
       modalVisual.appendChild(voucher);
@@ -275,23 +259,6 @@
 
       modalBackdrop.classList.add('active');
       giftModal.classList.add('active');
-      modalBackdrop.setAttribute('aria-hidden', 'false');
-
-      // Generate QR code that links to redemption page
-      if (typeof QRCode !== 'undefined') {
-        // Use deployed Netlify URL for QR code (works when scanned from phone)
-        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-        const baseUrl = isLocalhost ? 'https://exquisite-gnome-7b1542.netlify.app' : window.location.origin;
-        const redemptionUrl = baseUrl + '/redeem.html?gift=flowers';
-        new QRCode(qrWrapper, {
-          text: redemptionUrl,
-          width: 112,
-          height: 112,
-          colorDark: '#D4145A',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.H
-        });
-      }
       modalBackdrop.setAttribute('aria-hidden', 'false');
     }
 
