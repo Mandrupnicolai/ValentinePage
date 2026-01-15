@@ -43,12 +43,15 @@
   text-align: center;
   overflow-y: auto;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   transition: opacity var(--page-transition-time) ease, transform var(--page-transition-time) ease;
   opacity: 0;
   transform: translateY(18px) scale(0.98);
   pointer-events: none;
-  padding: 10px 0 40px 0;
+  padding: 0.75rem 0 3rem 0;
   min-height: min-content;
+  padding-top: max(0.75rem, env(safe-area-inset-top, 0.75rem));
+  padding-bottom: max(3rem, env(safe-area-inset-bottom, 3rem));
 }
 
 .page.active {
@@ -120,22 +123,29 @@
 }
 
 /* PAGE 2 – ROMANTIC GIFTS */
+/* Mobile-First Approach */
 
 .gifts-layout {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 14px;
+  gap: 0.75rem;
   text-align: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
 }
 
 .gifts-title {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(2.1rem, 2.4vw + 1.2rem, 3rem);
+  font-size: clamp(1.2rem, 5vw, 1.6rem);
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.4),
     0 0 24px rgba(252, 153, 207, 0.96);
-  font-size: 500%;
+  margin: 0 0 0.5rem 0;
+  padding: 0.5rem 0;
+  width: 100%;
 }
 
 .gifts-subtext {
@@ -146,30 +156,54 @@
   margin-bottom: 12px;
 }
 
+/* Mobile: Single column vertical stack */
 .gifts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 260px));
-  gap: 22px;
-  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
   width: 100%;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 100%;
+  padding: 0;
 }
 
-@media (max-width: 860px) {
+/* Tablet: 2 columns */
+@media (min-width: 561px) {
   .gifts-grid {
+    display: grid;
     grid-template-columns: repeat(2, minmax(180px, 240px));
     justify-content: center;
+    gap: 1.25rem;
+    max-width: 550px;
+  }
+
+  .gifts-layout {
+    gap: 1rem;
+    padding: 0;
+  }
+
+  .gifts-title {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    margin-bottom: 1rem;
   }
 }
 
-@media (max-width: 560px) {
+/* Desktop: 3 columns */
+@media (min-width: 861px) {
   .gifts-grid {
-    grid-template-columns: 1fr;
-    max-width: 300px;
-    gap: 15px;
-    padding: 0 15px;
+    grid-template-columns: repeat(3, minmax(200px, 260px));
+    gap: 1.5rem;
+    max-width: 900px;
+  }
+
+  .gifts-layout {
+    gap: 1.25rem;
+  }
+
+  .gifts-title {
+    font-size: clamp(2.1rem, 2.4vw + 1.2rem, 3rem);
+    margin-bottom: 1.5rem;
   }
 }
