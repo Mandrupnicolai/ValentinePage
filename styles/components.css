@@ -122,6 +122,7 @@
   align-items: center;
   justify-content: center;
   transform-origin: center;
+  transform: scale(1.5);
   transition: transform 0.32s ease;
   min-height: auto;
   width: 100%;

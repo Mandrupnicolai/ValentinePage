@@ -139,14 +139,14 @@
 
 .gifts-title {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(1.2rem, 5vw, 1.6rem);
+  font-size: clamp(1.8rem, 7.5vw, 2.4rem);
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.4),
     0 0 24px rgba(252, 153, 207, 0.96);
   margin: 0 0 0.5rem 0;
   padding: 0.5rem 0;
   width: 100%;
-}
+
 
 .gifts-subtext {
   font-size: 0.9rem;
