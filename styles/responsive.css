@@ -5,16 +5,181 @@
 
 /* Tablet / Medium screens */
 @media (max-width: 860px) {
+  .proposal-heading {
+    font-size: clamp(2.2rem, 7vw, 3.2rem);
+    margin-bottom: 30px;
+  }
+
+  .hero-teddy {
+    width: min(320px, 70vw);
+    max-width: 380px;
+  }
+
   .gifts-grid {
     grid-template-columns: repeat(2, minmax(180px, 240px));
     justify-content: center;
+    gap: 20px;
+  }
+
+  .gifts-title {
+    font-size: clamp(1.6rem, 5vw, 2rem);
+    margin-bottom: 30px;
+  }
+
+  .modal {
+    max-width: 85vw;
+    padding: 25px;
+  }
+
+  .voucher-card {
+    padding: 20px;
+  }
+
+  .choc-box {
+    height: auto;
+    min-height: 160px;
   }
 }
 
 /* Mobile / Small screens */
 @media (max-width: 560px) {
+  body {
+    font-size: 15px;
+  }
+
+  .proposal-heading {
+    font-size: clamp(2rem, 8vw, 2.6rem);
+    margin-bottom: 20px;
+    padding: 0 15px;
+  }
+
+  .hero-teddy {
+    width: min(260px, 65vw);
+    max-width: 300px;
+  }
+
+  .proposal-buttons {
+    margin-top: 25px;
+    gap: 15px;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 24px;
+    font-size: 1.05rem;
+    touch-action: manipulation;
+  }
+
+  .btn-yes {
+    order: 1;
+  }
+
+  .btn-no {
+    order: 2;
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
   .gifts-grid {
     grid-template-columns: minmax(220px, 90vw);
+    gap: 18px;
+    padding: 0 15px;
+  }
+
+  .gifts-title {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+    margin-bottom: 25px;
+    padding: 0 15px;
+  }
+
+  .gift-card {
+    padding: 30px 20px;
+    min-height: 200px;
+  }
+
+  .gift-emoji {
+    font-size: clamp(4.5rem, 20vw, 7rem);
+  }
+
+  .modal {
+    max-width: 92vw;
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .modal-close {
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+  }
+
+  .voucher-card {
+    padding: 18px;
+  }
+
+  .voucher-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .choc-box {
+    height: auto;
+    min-height: 140px;
+    padding: 15px;
+  }
+
+  .countdown-grid {
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .countdown-value {
+    font-size: 2rem;
+  }
+
+  .countdown-label {
+    font-size: 0.75rem;
+  }
+
+  .back-btn {
+    top: 15px;
+    left: 15px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+  }
+
+  /* Background effects optimization */
+  .bg-heart,
+  .bg-sparkle {
+    display: none; /* Reduce performance impact on mobile */
+  }
+
+  .cursor-heart {
+    display: none; /* Disable cursor trail on mobile */
+  }
+
+  /* Modal visual adjustments */
+  .modal-visual {
+    height: auto;
+    min-height: 120px;
+    margin-bottom: 15px;
+  }
+
+  .bouquet {
+    transform: scale(0.85);
+  }
+
+  /* Explosion effects */
+  .explosion-heart,
+  .explosion-confetti {
+    font-size: 20px;
   }
 }
 
@@ -27,6 +192,7 @@
 
   .proposal-heading {
     font-size: clamp(1.8rem, 6.6vw + 0.6rem, 2.6rem);
+    margin-bottom: 15px;
   }
 
   .hero-teddy {
@@ -41,6 +207,12 @@
     padding: 0 10px;
   }
 
+  .btn {
+    padding: 12px 18px;
+    font-size: 0.98rem;
+    max-width: 260px;
+  }
+
   .gift-emoji {
     font-size: clamp(4rem, 22vw, 8rem);
   }
@@ -49,6 +221,16 @@
     grid-template-columns: 1fr;
     gap: 12px;
     padding: 0 10px;
+  }
+
+  .gifts-title {
+    font-size: clamp(1.3rem, 5.5vw, 1.6rem);
+    margin-bottom: 20px;
+  }
+
+  .gift-card {
+    padding: 25px 15px;
+    min-height: 180px;
   }
 
   .modal {
@@ -61,15 +243,113 @@
     margin-bottom: 12px;
   }
 
-  .btn {
-    padding: 12px 18px;
-    font-size: 0.98rem;
-    touch-action: manipulation;
+  .modal-message {
+    font-size: 0.9rem;
+  }
+
+  .voucher-card {
+    padding: 15px;
+  }
+
+  .voucher-text {
+    font-size: 0.95rem;
+  }
+
+  .bouquet {
+    transform: scale(0.75);
+  }
+
+  .countdown-grid {
+    gap: 8px;
+  }
+
+  .countdown-value {
+    font-size: 1.8rem;
+  }
+
+  .countdown-label {
+    font-size: 0.7rem;
   }
 
   .back-btn {
     top: env(safe-area-inset-top, 10px);
     left: 8px;
     padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Reduce animation intensity */
+  .explosion-heart,
+  .explosion-confetti {
+    font-size: 18px;
+  }
+}
+
+/* Landscape orientation on small screens */
+@media (max-height: 500px) and (orientation: landscape) {
+  .proposal-heading {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+
+  .hero-teddy {
+    width: min(180px, 40vw);
+    max-width: 200px;
+  }
+
+  .proposal-buttons {
+    margin-top: 15px;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .btn {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
+
+  .gifts-layout {
+    padding: 15px 10px;
+  }
+
+  .gifts-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+  }
+
+  .modal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* Very large screens */
+@media (min-width: 1400px) {
+  .proposal-heading {
+    font-size: 4.2rem;
+  }
+
+  .hero-teddy {
+    width: 420px;
+    max-width: 480px;
+  }
+
+  .btn {
+    padding: 18px 38px;
+    font-size: 1.35rem;
+  }
+
+  .gifts-grid {
+    grid-template-columns: repeat(3, minmax(240px, 280px));
+    gap: 35px;
+  }
+
+  .gifts-title {
+    font-size: 2.6rem;
+  }
+
+  .modal {
+    max-width: 600px;
+    padding: 40px;
   }
 }
